@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 	s.name		= 'jmadlibs'
-	s.version	= '0.8.5'
-	s.date		= '2017-04-25'
+	s.version	= '0.8.6'
+	s.date		= '2017-08-18'
 	s.summary	= "JMadlibs madlib engine"
 	s.description	= "A madlibs engine with several powerful features"
 	s.authors	= ["Gareth Morgan"]

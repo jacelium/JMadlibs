@@ -58,7 +58,8 @@ can be supplied.
 
 Substitutions allow some limited post-processing:
 * <key$A> will prepend the substituted word with 'an ' if the returned text
-  begins with a vowel, and 'a ' else; for example, `I am <snake$A>` might produce
+  begins with a vowel, and 'a ' else; for example, `I am <snake$A>` might
+produce
 ```
 I am a cobra
 I am an anaconda
@@ -70,7 +71,8 @@ I work as <job$A> => I work as a geologist
 I work as <Job$AU> => I work as an Archaeologist
 ```
 
-These post-processing flags can be used at the end of any substitution token and in any order:
+These post-processing flags can be used at the end of any substitution token
+and in any order:
 
 ```
 <job+hobby+role$UA>
@@ -110,7 +112,8 @@ When loading from a file, word list names are given between two pairs of `=`,
 for instance as `==pet==`. Any following words are added to the current word
 list, until another word list name is given.  Lines beginning with `#` are
 comments, blank lines are ignored, and any line with text before the first word
-list name is considered to be a pattern.
+list name is considered to be a pattern.  Successive patterns will overwrite
+the current pattern.
 
 ## Examples
 
@@ -163,6 +166,37 @@ other:
 madlibs.setPattern("{[<Salutation> %50] <Surname>|<Surname>} is a <jobtitle>[ and is paid {well|poorly}%10]")
 ```
 
+## More complex word lists
+
+In some cases, you may wish to use alternative forms of words depending on
+context.  While you could do this using separate word lists (for instance, 
+an 'animal' list and an 'animals' list for pluralisations), in order to avoid
+adding many extra lists that may become unwieldy to manage, word lists support
+alternative forms specified thus:
+
+```
+==animal==
+cat^cats
+dog^dogs
+finch^finches
+
+fish
+```
+
+Forms other than the default can be referred to using $0-9 in the postprocessing
+specifier:
+
+```
+One <animal>, many <animal$0> => One dog, many finches
+```
+
+If an unrecognised index, an index pointing to an empty field, or no index at all
+is given, the default is returned:
+```
+One <animal>, many <animal$0> => One cat, many fish
+```
+
+
 ## Other settings
 
 Various informational and debugging messages can be made visible. Log levels
@@ -181,6 +215,11 @@ set using `madlibs.logLevel(3)` or `madlibs.logLevel("INFO")`
   output accordingly).
 
 ## Changelist
+
+* 18/08/2017 -
+
+  * Postprocessing directives are now given at the end of substitutions, as `<token$UA>`
+  * Word lists support alternative forms of the same word for brevity 
 
 * 25/04/2017 - Updated methods to properly use seeded RNG rather than default rand() (0.8.3)
 
