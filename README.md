@@ -57,17 +57,23 @@ a word from either of the lists specified, and an arbitrary number of lists
 can be supplied.
 
 Substitutions allow some limited post-processing:
-* <key$a> will prepend the substituted word with 'an ' if the returned text
-  begins with a vowel, and 'a ' else; for example, `I am <snake$a>` can produce
+* <key$A> will prepend the substituted word with 'an ' if the returned text
+  begins with a vowel, and 'a ' else; for example, `I am <snake$A>` might produce
 ```
 I am a cobra
 I am an anaconda
 ```
-* uppercasing the first letter of a key will cause the returned word to be
+* <key$U>  will cause the returned word to be
   capitalised.  
 ```
-I work as <job$a> => I work as a geologist
-I work as <Job$a> => I work as an Archaeologist
+I work as <job$A> => I work as a geologist
+I work as <Job$AU> => I work as an Archaeologist
+```
+
+These post-processing flags can be used at the end of any substitution token and in any order:
+
+```
+<job+hobby+role$UA>
 ```
 
 #### [Optionals]
