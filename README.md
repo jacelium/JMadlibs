@@ -142,7 +142,7 @@ require 'jmadlibs'
 
 madlibs = JMadlibs.new()
 madlibs.loadFile('./input.txt')
-madlibs.setPattern("My <family> fed <food%A> to my <pet+family>")
+madlibs.setPattern("My <family> fed <food$A> to my <pet+family>")
 print madlibs.generate
 ```
 
